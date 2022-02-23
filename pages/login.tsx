@@ -10,6 +10,7 @@ import { Role, validateMessages } from '../lib/constant';
 import { LoginFormValues } from '../lib/model/login';
 import apiService from '../lib/services/api-service';
 import storage from '../lib/services/storage';
+import { userLogin } from './api/login';
 
 const { Title } = Typography;
 
@@ -33,7 +34,7 @@ export default function Login() {
   const [form] = Form.useForm();
   const router = useRouter();
   const login = async (loginRequest: LoginFormValues) => {
-    const { data } = await apiService.login(loginRequest);
+    const { data } = await userLogin(loginRequest);
 
     if (!!data) {
       storage.setUserInfo(data);
