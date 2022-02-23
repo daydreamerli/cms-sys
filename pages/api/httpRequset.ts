@@ -1,35 +1,8 @@
 import { QueryParams } from "../../lib/model";
-import axios from "axios";
-import storage from "../../lib/services/storage";
+import { axiosInstance, getPath, IPath } from "./axiosInstance";
 import { errorHandler } from "./error-handler";
 
-const baseURL = 'http://cms.chtoma.com/api';
 
-export const axiosInstance = axios.create({
-  baseURL,
-  withCredentials: true,
-  responseType: 'json',
-});
-
-axiosInstance.interceptors.request.use((config) => {
-  if (!config.url.includes('login')) {
-    return {
-      ...config,
-      headers: {
-        ...config.headers,
-        Authorization: 'Bearer ' + storage?.token,
-      },
-    };
-  }
-
-  return config;
-});
-
-type IPath = (string | number)[] | string | number;
-
-function getPath(path: IPath): string {
-    return !Array.isArray(path) ? String(path) : path.join('/');
-}
 export async function httpPost<T>(path: IPath, params: object): Promise<T> {
     return axiosInstance
         .post(getPath(path), params)
