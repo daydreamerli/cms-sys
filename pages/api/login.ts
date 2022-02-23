@@ -13,6 +13,5 @@ export async function userLogin(
             ...rest,
             password: AES.encrypt(password, 'cms').toString(),
           })
-         // .then(showMessage(res))
    
 }
