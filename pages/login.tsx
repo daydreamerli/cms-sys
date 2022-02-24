@@ -10,7 +10,7 @@ import { Role, validateMessages } from '../lib/constant';
 import { LoginFormValues } from '../lib/model/login';
 import apiService from '../lib/services/api-service';
 import storage from '../lib/services/storage';
-import { userLogin } from './api/login';
+import { userLogin } from './api/apiRequests';
 
 const { Title } = Typography;
 
