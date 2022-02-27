@@ -15,20 +15,20 @@ export function useListEffect<P, T extends ListResponse, U = any>(
   const [loading, setLoading] = useState<boolean>(true);
   const request = useCallback(apiFn, []);
   const stringParams = JSON.stringify(params || {});
-
-  useEffect(() => {
+  // change this useEffect to getServerSideProps
+  async function getServerSideProps(){
     const req = omitBy(
       { ...paginator, ...(params || {}) },
       (item: string | number | boolean | null) => item === '' || item === null
     ) as any;
-
+  
     setLoading(true);
-
+  
     request(req).then((res) => {
       const { data: newData } = res;
       const fresh = (newData[sourceKey as string] as unknown) as U[];
       const source = onlyFresh ? fresh : [...data, ...fresh];
-
+  
       setData(source);
       setTotal(newData.total);
       setHasMore(
@@ -36,6 +36,9 @@ export function useListEffect<P, T extends ListResponse, U = any>(
       );
       setLoading(false);
     });
+  }
+  useEffect(() => {
+    getServerSideProps();
   }, [paginator, stringParams]);
 
   return {
@@ -50,3 +53,4 @@ export function useListEffect<P, T extends ListResponse, U = any>(
     setLoading,
   };
 }
+
