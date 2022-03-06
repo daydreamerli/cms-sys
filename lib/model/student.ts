@@ -1,0 +1,59 @@
+import { BaseType, Paginator, ProfileListResponse } from "./api";
+import { Course, CourseShort } from "./course";
+
+export interface Student<T = CourseShort> {
+  id: number;
+  name: string;
+  updateAt: string;
+  country: string;
+  ctime: string;
+  email: string;
+  courses: T[];
+  type: BaseType | null;
+}
+
+export interface StudentProfile {
+  id: number;
+  name: string;
+  country: string;
+  email: string;
+  address: string;
+  phone: number;
+  gender: number;
+  education: string;
+  age: number;
+  interest: string[];
+  avatar: string;
+  memberStartAt: string;
+  memberEndAt: string;
+  description: string;
+}
+
+export interface StudentWithProfile extends Student<Course>,StudentProfile{};
+
+export type StudentResponse = StudentWithProfile;
+
+export interface AddStudentRequest {
+  name: string;
+  country: string;
+  email: string;
+  type: number;
+}
+
+export type AddStudentResponse = Student;
+
+export interface UpdateStudentRequest extends AddStudentRequest {
+  id: number;
+}
+
+export type UpdateStudentResponse = StudentWithProfile;
+
+export interface ProfileRequest extends Paginator {
+  query?: string;
+  userId?: number;
+}
+
+export interface StudentsResponse extends ProfileListResponse {
+  students: Student[];
+}
+
