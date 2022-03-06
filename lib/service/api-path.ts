@@ -9,3 +9,16 @@ export enum RootPath {
     teachers = 'teachers',
     userRole = 'userRole',
   }
+
+export enum SubPath {
+  add = 'add',
+  update = 'update',
+  delete = 'delete',
+  code = 'code',
+  type = 'type',
+  schedule = 'schedule',
+  overview = 'overview',
+  interest = 'interest',
+  statistics = 'statistics',
+  detail = 'detail',
+}
