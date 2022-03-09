@@ -3,8 +3,6 @@ import { IResponse } from '../../lib/model';
 import { message } from 'antd';
 import { useState } from 'react';
 
-
-
 export function errorHandler(err: AxiosError<IResponse>){
 
     const msg = err.response?.data.msg ?? 'unknown error';
