@@ -11,12 +11,12 @@ export async function userLogin(
         RootPath.login, {
         ...rest,
         password: AES.encrypt(password, 'cms').toString(),
-    })
+    });
 
 }
 
 export async function userLogout(): Promise<IResponse<boolean>>{
-    return httpPost<IResponse<boolean>>(RootPath.logout,{})
+    return httpPost<IResponse<boolean>>(RootPath.logout,{});
 }
 
 export async function getStudentList(
@@ -33,7 +33,7 @@ export async function getStudentById(id: number): Promise<IResponse<StudentsResp
 }
 
 export async function addStudent(req:AddStudentRequest): Promise<IResponse<AddStudentResponse>> {
-    return httpPost([RootPath.students],req)
+    return httpPost([RootPath.students],req).then(this.showMessage(true));
 }
 
 export async function updateStudent(req: UpdateStudentRequest): Promise<IResponse<UpdateStudentResponse>> {
